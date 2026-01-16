@@ -8,15 +8,16 @@
     --secondary-text: #a0a0a0;
     --nav-bg: rgba(5, 5, 5, 0.35);
     --transition-speed: 0.6s;
-    /* Updated Font Variables */
+    /* Font Variables */
     --font-heading: 'Playfair Display', 'Noto Serif TC', serif;
     --font-body: 'Noto Sans TC', sans-serif;
     --overlay-dark: rgba(5, 5, 5, 0.6);
-    /* Standardized darkness */
+    --font-weight-bold: 700;
+    --font-weight-light: 300;
+    /* Standardized darkness and transparency */
     --overlay-light: rgba(5, 5, 5, 0.4);
     --nav-bg: rgba(10, 10, 10, 0.4);
     --transition-speed: 0.4s;
-    /* Much lighter transparency */
 }
 
 * {
@@ -142,47 +143,132 @@ a {
 }
 
 .hero-title {
-    font-size: 4rem;
-    margin-bottom: 0.5rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    /* Responsive font size */
+    font-weight: 700;
+
+    /* Use a smaller, manageable spacing */
+    letter-spacing: 2rem;
+    /* Matches letter-spacing to center */
+    text-indent: 2rem;
+
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+    width: 100%;
+    text-align: center;
+
+    /* Visuals */
+    background: linear-gradient(to bottom, #ffffff 0%, #d1d1d1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.4));
+
     opacity: 0;
-    animation: fadeInUp 1s ease forwards 0.5s;
+    animation: fadeInUp 1.2s ease forwards 0.5s;
 }
 
 .hero-subtitle {
-    font-size: 2rem;
-    font-weight: 300;
-    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-weight: var(--font-weight-light);
+    /* Thin weight for contrast */
+    letter-spacing: 0.4em;
+    /* Very wide spacing for "Echo" theme */
     color: var(--secondary-text);
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+
     opacity: 0;
-    animation: fadeInUp 1s ease forwards 0.8s;
+    animation: fadeInUp 1.2s ease forwards 0.8s;
 }
 
+/* Bible Verse Container */
 .hero-verse {
-    font-size: 1.1rem;
-    font-style: italic;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease forwards 1.1s;
     font-family: var(--font-heading);
-    /* Using Serif for verse looks better */
+    font-size: 1.3rem;
+    font-style: italic;
+    /* Italics applied ONLY to the quote now */
+    color: #e0e0e0;
+    max-width: 700px;
+    margin: 0 auto 3.5rem auto;
+    line-height: 2;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease forwards 1.1s;
+}
+
+/* Verse Source: Distinct non-italic style */
+.verse-source {
+    display: block;
+    /* Moves source to a new line */
+    font-style: normal;
+    /* Removes italics from the source */
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    /* Uses Sans-Serif for a modern contrast */
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    color: var(--secondary-text);
 }
 
 .cta-button {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    border: 1px solid var(--accent-color);
-    color: var(--accent-color);
+    padding: 1rem 3.5rem;
+    /* Wider padding for a more elegant shape */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Softer initial border */
+    background: transparent;
+    color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+
+    /* Matching the header aesthetic */
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    text-indent: 0.4em;
+    /* Centering fix for letter-spacing */
+    font-weight: 300;
+
+    /* Smooth transition for all properties */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    /* Animation settings */
     opacity: 0;
-    animation: fadeInUp 1s ease forwards 1.4s;
+    animation: fadeInUp 1.2s ease forwards 1.4s;
 }
 
 .cta-button:hover {
-    background: var(--accent-color);
-    color: var(--bg-color);
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    letter-spacing: 0.5em;
+    /* Slight expansion on hover */
+    text-indent: 0.5em;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    /* Subtle glow */
+    transform: translateY(-3px);
+    /* Lifts the button slightly */
+}
+
+/* Optional: Add a subtle 'shimmer' effect */
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent);
+    transition: all 0.6s;
+}
+
+.cta-button:hover::before {
+    left: 100%;
 }
 
 /* Sections General */
@@ -384,12 +470,29 @@ section {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+        letter-spacing: 1em;
+        /* Scaled down for mobile */
+        text-indent: 1em;
+    }
+
     .navbar {
         padding: 1rem 1.5rem;
+        flex-direction: row;
+        /* Keep logo and links side-by-side */
     }
 
     .nav-links {
-        display: none;
+        display: flex;
+        /* Change from 'none' to 'flex' */
+        gap: 1rem;
+        /* Reduce gap for smaller screens */
+    }
+
+    .nav-links a {
+        font-size: 0.7rem;
+        /* Make text smaller to fit */
     }
 
     .hero-title {
