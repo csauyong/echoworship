@@ -53,8 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // A. CALCULATE DIMENSIONS (Responsive Friction)
+    // A. CALCULATE DIMENSIONS (Responsive Friction)
     function setDimensions() {
         if (scrollSection && mvGrid) {
+            // FIX for Mobile: Disable JS scroll logic entirely
+            if (window.innerWidth < 768) {
+                scrollState.isVisible = false;
+                scrollSection.style.height = 'auto'; // Reset to auto
+                mvGrid.style.transform = 'none'; // Clear any JS transform
+                return;
+            }
+
             scrollState.isVisible = true;
             scrollState.viewportWidth = window.innerWidth;
             scrollState.contentWidth = mvGrid.scrollWidth;
@@ -62,10 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Calculate how far we physically need to move horizontally
             const distToMove = scrollState.contentWidth - scrollState.viewportWidth;
 
-            // FIX 1: Responsive Friction
-            // Mobile (Touch) needs 1:1 feel. Desktop (Wheel) needs "weight" (1px move = 3px scroll)
-            const isMobile = window.innerWidth < 768;
-            const friction = isMobile ? 1.0 : 3.0;
+            // Desktop (Wheel) needs "weight" (1px move = 3px scroll)
+            const friction = 3.0;
 
             // Calculate the required vertical height
             // We multiply the distance by friction, then add the viewport (for sticky), plus a buffer
@@ -79,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // B. SCROLL UPDATE LOOP
     function updateVisuals() {
+        // Stop if not visible (mobile)
+        if (!scrollState.isVisible) return;
+
         const scrollY = window.scrollY;
 
         // 1. Parallax (Simple & Clean)
@@ -110,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } else if (sectionTop > 0) {
                 // Before section: Reset to 0
-                mvGrid.style.transform = `translateX(0px)`;
+                // mvGrid.style.transform = `translateX(0px)`;
             } else {
                 // After section: Lock to end
                 const maxTranslate = scrollState.contentWidth - scrollState.viewportWidth;

@@ -555,61 +555,106 @@ section {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-title {
-        font-size: 2rem;
-        letter-spacing: 1rem;
-        /* Scaled down for mobile */
-        text-indent: 1rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.5rem;
-        letter-spacing: 0.5rem;
-        /* Scaled down for mobile */
-        text-indent: 0.5rem;
-    }
-
     .navbar {
-        padding: 1rem 1.5rem;
-        flex-direction: column;
-        /* Stack vertically on small mobile if needed, or row */
-        gap: 1rem;
+        padding: 1rem 1rem;
+        /* Reduce padding */
+        flex-direction: row;
+        /* Keep in row */
+        flex-wrap: nowrap;
+        /* Prevent wrapping */
+        justify-content: space-between;
+        gap: 0.5rem;
+        /* Minimize gap */
     }
 
     .nav-left {
-        gap: 1.5rem;
+        gap: 0.8rem;
+        /* Reduce gap between logo and socials */
     }
 
     .logo-container {
-        /* Ensure logo container doesn't shrink awkwardly */
         flex-shrink: 0;
     }
 
+    .nav-logo {
+        height: 32px;
+        /* Slightly smaller logo */
+    }
+
     .nav-socials {
-        gap: 1rem;
+        display: none;
+        /* Hide social icons on mobile to save space if needed, OR keep them but make them smaller. User said "icons and buttons separated into 2 lines", so space is tight. Let's keep them but small first. */
+        gap: 0.8rem;
+    }
+
+    /* Re-enabling nav-socials for now but controlling size */
+    .nav-socials {
+        display: flex;
+    }
+
+    .social-icon {
+        width: 18px;
+        height: 18px;
     }
 
     .nav-links {
         display: flex;
-        /* Change from 'none' to 'flex' */
-        gap: 1rem;
-        /* Reduce gap for smaller screens */
+        gap: 0.8rem;
+        background: transparent;
+        /* Ensure no weird background */
     }
 
     .nav-links a {
-        font-size: 0.7rem;
-        /* Make text smaller to fit */
+        font-size: 0.75rem;
+        /* legible but compact */
+        padding: 0.2rem;
     }
 
-    /* MV Grid is now flex/scroll by default, so we don't need to override grid columns here except for maybe padding */
+    /* MV Scroll - Mobile Native Scroll */
+    .horizontal-scroll-section {
+        height: auto !important;
+        /* Override JS height */
+    }
+
+    .sticky-wrapper {
+        position: relative;
+        /* Remove sticky */
+        height: auto;
+        overflow: visible;
+        top: 0;
+    }
+
     .mv-grid {
-        gap: 1.5rem;
-        /* Mobile Centering Logic: Card is 80vw, Space is 20vw, Side is 10vw */
-        padding-left: 10vw;
-        padding-right: 10vw;
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        /* Full width */
+        overflow-x: auto;
+        /* Enable native scroll */
+        scroll-snap-type: x mandatory;
+        padding: 0 1rem;
+        /* Standard padding */
+        margin-top: 0;
+        transform: none !important;
+        /* Override JS transform */
+
+        /* Hide scrollbar */
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE 10+ */
+    }
+
+    .mv-grid::-webkit-scrollbar {
+        display: none;
+        /* Safari and Chrome */
     }
 
     .mv-card {
-        min-width: 80vw;
+        min-width: 75vw;
+        /* Reduce size as requested */
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+        margin-right: 0;
     }
 }
