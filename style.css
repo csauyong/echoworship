@@ -96,6 +96,35 @@ a {
     height: 40px;
 }
 
+/* Nav Left Container (Logo + Socials) */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    /* Space between logo and icons */
+}
+
+/* Social Icons in Navbar */
+.nav-socials {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.social-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--secondary-text);
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.nav-socials a:hover .social-icon {
+    color: var(--accent-color);
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
 .nav-links {
     list-style: none;
     display: flex;
@@ -542,8 +571,22 @@ section {
 
     .navbar {
         padding: 1rem 1.5rem;
-        flex-direction: row;
-        /* Keep logo and links side-by-side */
+        flex-direction: column;
+        /* Stack vertically on small mobile if needed, or row */
+        gap: 1rem;
+    }
+
+    .nav-left {
+        gap: 1.5rem;
+    }
+
+    .logo-container {
+        /* Ensure logo container doesn't shrink awkwardly */
+        flex-shrink: 0;
+    }
+
+    .nav-socials {
+        gap: 1rem;
     }
 
     .nav-links {
