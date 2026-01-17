@@ -40,9 +40,44 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.style.borderBottom = '1px solid transparent';
         }
     });
-});
+    // Navbar Scroll Effect continued...
 
-document.addEventListener('scroll', () => {
+
+    // Horizontal Scroll Trigger
+    const scrollSection = document.querySelector('.horizontal-scroll-section');
+    const stickyWrapper = document.querySelector('.sticky-wrapper');
+    const mvGrid = document.querySelector('.mv-grid');
+
+    if (scrollSection && stickyWrapper && mvGrid) {
+        window.addEventListener('scroll', () => {
+            const sectionRect = scrollSection.getBoundingClientRect();
+            const sectionTop = sectionRect.top;
+            const sectionHeight = scrollSection.offsetHeight;
+            const windowHeight = window.innerHeight;
+
+            // Check if section is in view
+            if (sectionTop <= 0 && sectionTop > -(sectionHeight - windowHeight)) {
+                // Calculate how far we've scrolled into the section
+                const scrolledDistance = Math.abs(sectionTop);
+
+                // Max scrollable vertical distance
+                const maxScroll = sectionHeight - windowHeight;
+
+                // Horizontal scrollable width (track width - viewport width)
+                // We use stickyWrapper.clientWidth to account for any potential scrollbars relative to the container
+                const scrollWidth = mvGrid.scrollWidth - stickyWrapper.clientWidth;
+
+                // Map vertical progress to horizontal offset
+                // Using a slight ease for smoother feel could be nice, but direct mapping is more responsive
+                const progress = scrolledDistance / maxScroll;
+                const translateX = progress * scrollWidth;
+
+                mvGrid.style.transform = `translateX(-${translateX}px)`;
+            }
+        });
+    }
+
+    // Parallax Effect
     const background = document.querySelector('.global-parallax');
     if (background) {
         // Get the speed from the data-speed attribute (0.3)

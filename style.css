@@ -161,6 +161,7 @@ a {
     /* Visuals */
     background: linear-gradient(to bottom, #ffffff 0%, #d1d1d1 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.4));
 
@@ -342,17 +343,55 @@ section {
     transform: translateY(-5px);
 }
 
-/* MV Grid */
-.mv-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    /* Increased gap for a less crowded feel */
-    margin-top: 3rem;
+/* Horizontal Scroll Section */
+.horizontal-scroll-section {
+    height: 200vh;
+    /* Reduced from 300vh for faster scroll */
+    position: relative;
+    /* Context for sticky */
 }
+
+.sticky-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    /* No local scrollbars */
+    display: flex;
+    align-items: center;
+    /* Vertically center the track */
+}
+
+/* MV Grid: Now acts as the moving track */
+.mv-grid {
+    display: flex;
+    gap: 4rem;
+    width: max-content;
+    will-change: transform;
+
+    /* Center the first and last items */
+    /* Card width is 60vw. Remaining space is 40vw. Half is 20vw. */
+    padding-left: 20vw;
+    padding-right: 20vw;
+
+    margin-top: 0;
+}
+
+/* Hide scrollbar styles are no longer needed for mv-grid itself 
+   as it won't scroll internally */
 
 /* MV Card: Glassmorphism Container */
 .mv-card {
+    min-width: 60vw;
+    /* Much larger for impact */
+    max-width: none;
+    /* Remove restriction */
+    flex: 0 0 auto;
+    /* Don't shrink */
+    scroll-snap-align: center;
+    /* Snap to center */
+
     background: rgba(255, 255, 255, 0.03);
     /* Extremely subtle white tint */
     backdrop-filter: blur(12px);
@@ -519,11 +558,15 @@ section {
         /* Make text smaller to fit */
     }
 
+    /* MV Grid is now flex/scroll by default, so we don't need to override grid columns here except for maybe padding */
     .mv-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 3rem;
-        /* Increased gap for a less crowded feel */
-        margin-top: 3rem;
+        gap: 1.5rem;
+        /* Mobile Centering Logic: Card is 80vw, Space is 20vw, Side is 10vw */
+        padding-left: 10vw;
+        padding-right: 10vw;
+    }
+
+    .mv-card {
+        min-width: 80vw;
     }
 }
