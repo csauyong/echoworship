@@ -785,7 +785,8 @@ section {
         pointer-events: none; 
         z-index: 10; /* Lower than socials so icons remain clickable */
         
-        width: auto;
+        width: fit-content;
+        max-width: 120px;
         display: flex;
         justify-content: center;
     }
