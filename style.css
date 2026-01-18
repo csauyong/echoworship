@@ -725,27 +725,19 @@ section {
 
     .logo-container {
         flex-shrink: 0;
-        /* Ensure logo is center or left? In flex space-between:
-           Order: Socials, Logo, Links.
-           Ideally Logo in middle. 
-           Let's try absolute centering for logo on mobile or keep grid.
-           Actually, keeping grid on mobile might be cramped.
-           Let's try flex but maybe reorder?
-           Layout: Socials (Left), Logo (Center), Links (Right) - tight fit.
-           Or Logo (Left), Socials (Hidden), Links (Right).
-           User wanted logo centered.
-           Let's stick to Grid but adjust columns or gap.
-        */
         display: block;
         /* ensure visibility */
     }
 
     .nav-logo {
         height: 32px;
-        /* Slightly smaller logo */
+        pointer-events: auto;
     }
 
     .nav-socials {
+        position: relative;
+        z-index: 100;
+        /* Higher number sits on top */
         display: flex;
         gap: 0.5rem;
     }
@@ -767,6 +759,10 @@ section {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        width: auto;
+        /* STOP it from stretching full width */
+        pointer-events: none;
+        /* Let clicks pass through the empty area */
     }
 
     /* Adjust links to be minimal or smaller to fit */
@@ -792,45 +788,6 @@ section {
         background: transparent;
         /* Ensure no weird background */
     }
-
-    /* If socials are hidden, we have Logo and Links. 
-       Grid: 1fr auto 1fr. 
-       Socials (1fr) -> hidden.
-       Logo (auto -> center).
-       Links (1fr -> end).
-       This works if .nav-socials is hidden but still takes up space? No display:none removes it.
-       So Grid becomes: (empty) auto 1fr. Logo won't be centered.
-       
-       Let's override navbar to flex on mobile for simpler control?
-       Or use grid but fix columns.
-       
-       Better Mobile Plan:
-       Logo Center, Links Right, Burger Left (if existed).
-       Since Socials are hidden, let's make Navbar Flex.
-       Logo Center: Absolute?
-       
-       Let's try:
-       Navbar Flex.
-       Logo: flex-grow 1? No.
-       
-       Let's try to keep Socials hidden, Logo Left, Links Right?
-       Original was flexible.
-       
-       Let's try this:
-       .nav-socials { display: none; }
-       .navbar { display: flex; justify-content: space-between; }
-       
-       But USER wanted Logo CENTERED.
-       
-       Mobile: Logo Center.
-       Left side is empty (since socials hidden).
-       Right side has links.
-       
-       To center Logo with content on right only:
-       Use absolute positioning for logo.
-       
-    */
-    /* .nav-links adjustments moved up */
 
     .nav-links a {
         font-size: 0.75rem;
