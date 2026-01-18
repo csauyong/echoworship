@@ -727,7 +727,7 @@ section {
     .nav-socials {
         display: flex !important; /* Force flex layout */
         align-items: center;
-        gap: 0.8rem; /* Space between icons */
+        gap: 0.3rem; /* Space between icons */
         
         /* CRITICAL: Prevent the container from collapsing to width: 0 */
         flex-shrink: 0; 
@@ -770,7 +770,7 @@ section {
 
     .nav-separator {
         height: 14px;
-        margin: 0 0.2rem;
+        margin: 0 0.1rem;
         background-color: var(--secondary-text);
     }
 
