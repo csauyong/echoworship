@@ -119,7 +119,7 @@ body.light-theme .nav-logo {
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 body {
@@ -547,6 +547,9 @@ section {
     /* Card width is 60vw. Remaining space is 40vw. Half is 20vw. */
     padding-left: 20vw;
     padding-right: 20vw;
+
+    /* CRITICAL: Ensures the grid moves instantly with the scroll bar */
+    transition: transform 0s linear !important;
 
     margin-top: 0;
 }

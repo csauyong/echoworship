@@ -41,14 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // A. CALCULATE DIMENSIONS (Responsive Friction)
-    // A. CALCULATE DIMENSIONS (Responsive Friction)
     function setDimensions() {
         if (scrollSection && mvGrid) {
-            // FIX for Mobile: Disable JS scroll logic entirely
+            // Disable on mobile
             if (window.innerWidth < 768) {
                 scrollState.isVisible = false;
-                scrollSection.style.height = 'auto'; // Reset to auto
-                mvGrid.style.transform = 'none'; // Clear any JS transform
+                scrollSection.style.height = 'auto';
+                mvGrid.style.transform = 'none';
                 return;
             }
 
@@ -56,61 +55,58 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollState.viewportWidth = window.innerWidth;
             scrollState.contentWidth = mvGrid.scrollWidth;
 
-            // Calculate how far we physically need to move horizontally
+            // distance to move horizontally
             const distToMove = scrollState.contentWidth - scrollState.viewportWidth;
 
-            // Desktop (Wheel) needs "weight" (1px move = 3px scroll)
+            // Friction: Higher = Slower/Heavier scroll. 
+            // 3.0 is good, but you can lower to 2.5 for "lighter" feel if needed.
             const friction = 3.0;
 
-            // Calculate the required vertical height
-            // We multiply the distance by friction, then add the viewport (for sticky), plus a buffer
-            scrollState.trackHeight = (distToMove * friction);
-            const totalSectionHeight = scrollState.trackHeight + window.innerHeight + scrollState.buffer;
+            // Calculate the ACTIVE scroll distance (The "Track")
+            scrollState.trackHeight = distToMove * friction;
 
-            // Apply height to CSS
+            // Total height = Active Track + 1 Screen Height (for the sticky duration)
+            // REMOVED: The extra 'buffer' which caused the dead zone.
+            const totalSectionHeight = scrollState.trackHeight + window.innerHeight;
+
             scrollSection.style.height = `${totalSectionHeight}px`;
         }
     }
 
-    // B. SCROLL UPDATE LOOP
-    // B. SCROLL UPDATE LOOP
+    // B. SCROLL UPDATE LOOP (Smoothed)
     function updateVisuals() {
         const scrollY = window.scrollY;
 
-        // 1. Parallax (Simple & Clean) - ALWAYS RUNS
+        // 1. Parallax
         if (background) {
             const speed = parseFloat(background.getAttribute('data-speed')) || 0.1;
             background.style.transform = `translateY(${-scrollY * speed}px)`;
         }
 
-        // 2. Horizontal Scroll - ONLY IF VISIBLE (Desktop)
-        if (!scrollState.isVisible) return;
-
+        // 2. Horizontal Scroll
         if (scrollState.isVisible) {
             const sectionRect = scrollSection.getBoundingClientRect();
             const sectionTop = sectionRect.top;
 
-            // Check if we are in the active zone
-            // We use trackHeight (calculated above) to know exactly when to stop
-            if (sectionTop <= 0 && sectionTop > -(scrollState.trackHeight + scrollState.buffer)) {
+            // Logic: The sticky container is active when sectionTop is between 0 and -trackHeight
+            // We verify "is the section currently sticking?"
 
-                // Calculate Progress
-                // "How many pixels have we scrolled?" / "How many pixels allow movement?"
-                let progress = Math.abs(sectionTop) / scrollState.trackHeight;
+            if (sectionTop <= 0 && sectionTop > -scrollState.trackHeight) {
+                // Calculate Progress precisely
+                // 0 = Start, 1 = End
+                const progress = Math.abs(sectionTop) / scrollState.trackHeight;
 
-                // Clamp progress between 0 and 1
-                // This prevents the "fast exit" by freezing the cards for the last few pixels (the buffer)
-                if (progress > 1) progress = 1;
+                // Map progress to Horizontal Distance
+                const maxTranslate = scrollState.contentWidth - scrollState.viewportWidth;
+                const translateX = progress * maxTranslate;
 
-                // Move the grid
-                const translateX = progress * (scrollState.contentWidth - scrollState.viewportWidth);
                 mvGrid.style.transform = `translateX(-${translateX}px)`;
 
             } else if (sectionTop > 0) {
-                // Before section: Reset to 0
-                // mvGrid.style.transform = `translateX(0px)`;
-            } else {
-                // After section: Lock to end
+                // Not reached yet -> Reset
+                mvGrid.style.transform = `translateX(0px)`;
+            } else if (sectionTop <= -scrollState.trackHeight) {
+                // Passed it -> Lock to end
                 const maxTranslate = scrollState.contentWidth - scrollState.viewportWidth;
                 mvGrid.style.transform = `translateX(-${maxTranslate}px)`;
             }
