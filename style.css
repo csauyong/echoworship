@@ -467,15 +467,50 @@ section {
     margin: 0 auto;
 }
 
+/* Echo Animation Styles */
+.echo-reveal {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.echo-reveal.visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+}
+
+/* Staggered Delays for children */
+.mission-content h3.echo-reveal {
+    transition-delay: 0.1s;
+}
+
+.mission-content p.echo-reveal:nth-of-type(1) {
+    transition-delay: 0.3s;
+}
+
+.mission-content p.echo-reveal:nth-of-type(2) {
+    transition-delay: 0.5s;
+}
+
+.mission-content p.echo-reveal:nth-of-type(3) {
+    transition-delay: 0.7s;
+}
+
 .mission-content h3 {
     font-size: 2rem;
     margin-bottom: 2rem;
 }
 
 .mission-content p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    font-size: 1.15rem;
     color: var(--secondary-text);
+    /* Improved typography */
+    line-height: 2.0;
+    padding-left: 0.5rem;
+    /* Visual alignment compensation */
 }
 
 /* Music Section */
@@ -826,21 +861,33 @@ section {
 
     /* --- 3. HERO SECTION TWEAKS --- */
     .hero-title {
-        font-size: 2.2rem;
-        letter-spacing: 0.5rem;
-        text-indent: 0.5rem;
+        font-size: 1.8rem;
+        letter-spacing: 0.3rem;
+        text-indent: 0.3rem;
         line-height: 1.2;
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
         letter-spacing: 0.2em;
     }
 
     .hero-verse {
-        font-size: 1rem;
+        font-size: 0.9rem;
         padding: 0 1rem;
+        line-height: 1.6;
+    }
+
+    /* --- 3.1 MISSION & GENERAL TEXT --- */
+    .section-title,
+    .mission-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .mission-content p {
+        font-size: 0.95rem;
         line-height: 1.8;
+        padding-left: 0.5rem;
     }
 
     /* --- 4. FOOTER & FORMS --- */
