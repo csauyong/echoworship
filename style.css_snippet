@@ -1,8 +1,0 @@
-/* Separator between Theme Toggle and Social Icons */
-.nav-separator {
-    width: 1px;
-    height: 18px;
-    background-color: var(--secondary-text);
-    margin: 0 0.5rem;
-    opacity: 0.5;
-}
