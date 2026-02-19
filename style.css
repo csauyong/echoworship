@@ -379,63 +379,198 @@ a {
     color: var(--secondary-text);
 }
 
-.cta-button {
-    display: inline-block;
-    padding: 1rem 3.5rem;
-    /* Wider padding for a more elegant shape */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    /* Softer initial border */
-    background: transparent;
-    color: #ffffff;
-    text-transform: uppercase;
-
-    /* Matching the header aesthetic */
-    font-size: 0.8rem;
-    letter-spacing: 0.4em;
-    text-indent: 0.4em;
-    /* Centering fix for letter-spacing */
-    font-weight: 300;
-
-    /* Smooth transition for all properties */
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
+/* Split CTA Button */
+.split-btn-container {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 280px;
+    height: 55px;
+    margin: 2rem auto 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    cursor: pointer;
     overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50px;
+    /* Pill Shape */
 
-    /* Animation settings */
+    /* Animation Fade In */
     opacity: 0;
     animation: fadeInUp 1.2s ease forwards 1.4s;
 }
 
-.cta-button:hover {
-    background: #ffffff;
-    color: #000000;
-    border-color: #ffffff;
-    letter-spacing: 0.5em;
-    /* Slight expansion on hover */
-    text-indent: 0.5em;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    /* Subtle glow */
-    transform: translateY(-3px);
-    /* Lifts the button slightly */
+/* Default state: Single Button Look */
+.default-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    text-indent: 0.4em;
+    font-weight: 300;
+    z-index: 10;
+    pointer-events: none;
+    transition: all 0.4s ease;
+    white-space: nowrap;
 }
 
-/* Optional: Add a subtle 'shimmer' effect */
-.cta-button::before {
+/* Hover/Active State for Container */
+.split-btn-container:hover,
+.split-btn-container.active {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    /* Slight fill */
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.split-btn-container:hover .default-text,
+.split-btn-container.active .default-text {
+    opacity: 0;
+    transform: translate(-50%, -150%);
+    /* Move up */
+}
+
+/* Left and Right Halves */
+.split-half {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    opacity: 0;
+    /* Hidden initially */
+    transform: translateY(20px);
+}
+
+.split-half.left {
+    left: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0);
+    /* Invisible initially */
+    /* Invisible initially */
+}
+
+.split-half.right {
+    right: 0;
+    border-left: 1px solid rgba(255, 255, 255, 0);
+}
+
+/* Reveal Halves on Interaction */
+.split-btn-container:hover .split-half,
+.split-btn-container.active .split-half {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Individual Half Hover */
+.split-half:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.split-half:hover .cta-icon {
+    color: #000000;
+    transform: scale(1.1);
+}
+
+/* Divider in Middle */
+.split-divider {
+    position: absolute;
+    top: 15%;
+    bottom: 15%;
+    left: 50%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateX(-50%) scaleY(0);
+    /* Hidden height */
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    overflow: visible;
+}
+
+/* Reveal Divider */
+.split-btn-container:hover .split-divider,
+.split-btn-container.active .split-divider {
+    transform: translateX(-50%) scaleY(1);
+}
+
+/* Icons within Halves */
+.icon-label {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.cta-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+/* Light Theme Adjustments */
+body.light-theme .default-text {
+    color: #1a1a1a;
+}
+
+body.light-theme .split-btn-container {
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+body.light-theme .cta-icon {
+    color: #1a1a1a;
+}
+
+body.light-theme .split-divider {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .split-divider span {
+    background: #f5f5f5;
+    color: #1a1a1a;
+}
+
+/* Match light bg */
+body.light-theme .split-half:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+body.light-theme .split-half:hover .cta-icon {
+    color: #fff;
+}
+
+body.light-theme .split-btn-container:hover {
+    border-color: #000;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Shimmer Effect (Optional) */
+.split-btn-container::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(120deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent);
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     transition: all 0.6s;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.cta-button:hover::before {
+.split-btn-container:hover::before {
     left: 100%;
 }
 
@@ -859,7 +994,7 @@ section {
         /* Prevent text wrapping */
     }
 
-    /* --- 3. HERO SECTION TWEAKS --- */
+    /* --- 3. HERO CONTENT ADJUSTMENTS --- */
     .hero-title {
         font-size: 1.8rem;
         letter-spacing: 0.3rem;
@@ -876,6 +1011,17 @@ section {
         font-size: 0.9rem;
         padding: 0 1rem;
         line-height: 1.6;
+    }
+
+    /* --- MOBILE SPLIT BUTTON --- */
+    .split-btn-container {
+        width: 180px;
+        /* Narrower initially on mobile */
+    }
+
+    .split-btn-container.active {
+        width: 280px;
+        /* Expands on tap */
     }
 
     /* --- 3.1 MISSION & GENERAL TEXT --- */

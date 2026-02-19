@@ -54,8 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Friction: Higher = Slower/Heavier scroll. 
             // 3.0 is good, but you can lower to 2.5 for "lighter" feel if needed.
             // Faster on mobile
-            const isMobile = window.innerWidth < 768;
-            const friction = isMobile ? 1.5 : 2.5;
+            let friction = 2.5;
+            if (window.innerWidth < 600) {
+                friction = 1.0;
+            } else if (window.innerWidth < 1024) {
+                friction = 2.0;
+            }
 
             // Calculate the ACTIVE scroll distance (The "Track")
             scrollState.trackHeight = distToMove * friction;
