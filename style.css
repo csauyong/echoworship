@@ -395,6 +395,10 @@ a {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 50px;
     /* Pill Shape */
+    white-space: nowrap;
+    /* Prevent text wrapping */
+    flex-wrap: nowrap;
+    /* Prevent icon wrapping */
 
     /* Animation Fade In */
     opacity: 0;
@@ -417,12 +421,15 @@ a {
     pointer-events: none;
     transition: all 0.4s ease;
     white-space: nowrap;
+    opacity: 1;
+    /* Explicitly set opacity */
 }
 
 /* Hover/Active State for Container */
 .split-btn-container:hover,
 .split-btn-container.active {
-    border-color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.8);
+    /* Make border more visible */
     background: rgba(255, 255, 255, 0.05);
     /* Slight fill */
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
@@ -431,6 +438,10 @@ a {
 .split-btn-container:hover .default-text,
 .split-btn-container.active .default-text {
     opacity: 0;
+    visibility: hidden;
+    /* Hide it completely to prevent clicks/overlaps */
+    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+    /* Delay visibility hide */
     transform: translate(-50%, -150%);
     /* Move up */
 }
@@ -450,6 +461,8 @@ a {
     opacity: 0;
     /* Hidden initially */
     transform: translateY(20px);
+    white-space: nowrap;
+    flex-wrap: nowrap;
 }
 
 .split-half.left {
@@ -520,6 +533,8 @@ a {
     max-height: 24px;
     min-width: 24px;
     /* Prevent squishing */
+    flex-shrink: 0;
+    /* CRITICAL: Never let the icon shrink */
     fill: currentColor;
     color: #ffffff;
     transition: all 0.3s ease;
