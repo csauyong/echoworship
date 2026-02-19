@@ -515,9 +515,23 @@ a {
 .cta-icon {
     width: 24px;
     height: 24px;
+    /* CRITICAL: Enforce max dimensions for Safari/iPad */
+    max-width: 24px;
+    max-height: 24px;
+    min-width: 24px;
+    /* Prevent squishing */
     fill: currentColor;
     color: #ffffff;
     transition: all 0.3s ease;
+}
+
+/* Ensure multi-icon container has proper spacing and alignment */
+.multi-icon {
+    display: flex;
+    gap: 8px;
+    /* Explicit gap between the two icons */
+    align-items: center;
+    justify-content: center;
 }
 
 /* Light Theme Adjustments */
