@@ -191,6 +191,7 @@ a {
 /* Ensure the logo is visible against the background image */
 .nav-logo {
     height: 55px;
+    cursor: pointer;
 }
 
 /* Nav Left Container (Logo + Socials REMOVED from HTML, styles removed) */
@@ -341,6 +342,7 @@ a {
     font-weight: var(--font-weight-light);
     /* Thin weight for contrast */
     letter-spacing: 0.4em;
+    text-indent: 0.4em;
     /* Very wide spacing for "Echo" theme */
     color: var(--secondary-text);
     margin-bottom: 2.5rem;
