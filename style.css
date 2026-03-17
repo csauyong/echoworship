@@ -1,4 +1,4 @@
-/* Import Fonts: Added Noto Serif TC for a modern, elegant look */
+/* Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
 
 :root {
@@ -6,21 +6,12 @@
     --text-color: #f0f0f0;
     --accent-color: #ffffff;
     --secondary-text: #a0a0a0;
-    --nav-bg: rgba(5, 5, 5, 0.35);
-    --transition-speed: 0.6s;
-    /* Font Variables */
-    --font-heading: 'Playfair Display', 'Noto Serif TC', serif;
-    --font-body: 'Noto Sans TC', sans-serif;
     --overlay-dark: rgba(5, 5, 5, 0.6);
-    --font-weight-bold: 700;
-    --font-weight-light: 300;
-    /* Standardized darkness and transparency */
     --overlay-light: rgba(5, 5, 5, 0.4);
     --nav-bg: rgba(5, 5, 5, 0.2);
-    /* Match original JS value for dark mode */
     --transition-speed: 0.4s;
-
-    /* Toggle Button Colors */
+    --font-heading: 'Playfair Display', 'Noto Serif TC', serif;
+    --font-body: 'Noto Sans TC', sans-serif;
     --toggle-text: #a0a0a0;
     --toggle-hover: #ffffff;
 }
@@ -28,29 +19,19 @@
 /* Light Theme Variables */
 body.light-theme {
     --bg-color: #f5f5f5;
-    /* Light Gray/White Background */
     --text-color: #1a1a1a;
-    /* Dark Text */
     --accent-color: #000000;
-    /* Black Accent */
     --secondary-text: #555555;
-    /* Dark Gray Secondary */
     --nav-bg: rgba(255, 255, 255, 0.85);
-    /* Whiter Nav Background */
-
     --overlay-dark: rgba(255, 255, 255, 0.7);
-    /* Light overlay instead of dark */
     --overlay-light: rgba(255, 255, 255, 0.5);
-
     --toggle-text: #555555;
     --toggle-hover: #000000;
 }
 
 body.light-theme .global-parallax {
     filter: invert(1) hue-rotate(180deg) brightness(1.2);
-    /* Invert dark background to light */
     opacity: 0.5;
-    /* Soften it */
 }
 
 body.light-theme .hero-title {
@@ -59,23 +40,10 @@ body.light-theme .hero-title {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: none;
-    /* Remove dark mode drop shadow or adjust it */
-    text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 body.light-theme .hero-verse {
     color: #333333;
-}
-
-body.light-theme .cta-button {
-    border-color: rgba(0, 0, 0, 0.3);
-    color: #1a1a1a;
-}
-
-body.light-theme .cta-button:hover {
-    background: #000000;
-    color: #ffffff;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }
 
 body.light-theme .mv-card {
@@ -93,14 +61,9 @@ body.light-theme .mv-info h4 {
     color: #000000;
 }
 
-body.light-theme .navbar {
-    /* Ensure nav text colors update correctly via variables, but force overrides if needed */
-}
-
 body.light-theme .nav-logo {
     filter: invert(1);
     opacity: 0.8;
-    /* Slightly reduce opacity to match text softness if needed, or keep 1 */
 }
 
 /* Navbar Scrolled State */
@@ -112,6 +75,7 @@ body.light-theme .nav-logo {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Global Reset */
 * {
     margin: 0;
     padding: 0;
@@ -128,14 +92,10 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     background-color: var(--bg-color);
-    /* Just a fallback color */
 }
 
 /* Typography */
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
     font-family: var(--font-heading);
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -149,23 +109,20 @@ a {
 
 .mobile-break {
     display: none;
-    /* Hidden on desktop */
 }
 
+/* Parallax Background */
 .global-parallax {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    /* Make the height taller than the screen so there is room to move */
     height: 120vh;
     background-image: url('assets/hero_background.png');
     background-size: cover;
     background-position: center;
     z-index: -1;
-    /* Keeps it behind all sections */
     will-change: transform;
-    /* Helps with performance */
 }
 
 /* Navigation */
@@ -174,70 +131,31 @@ a {
     top: 0;
     width: 100%;
     padding: 2rem 3rem;
-    /* Slightly more padding at the top for a "breathing" look */
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    /* Initial State: Fully Transparent */
     background: transparent;
     backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
     border-bottom: 1px solid transparent;
-
     z-index: 1000;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Ensure the logo is visible against the background image */
 .nav-logo {
     height: 55px;
     cursor: pointer;
 }
 
-/* Nav Left Container (Logo + Socials REMOVED from HTML, styles removed) */
-/* .nav-left removed */
-
 .logo-container {
     justify-self: center;
 }
 
-/* Social Icons in Navbar */
-.nav-socials {
+/* Left side: theme toggle */
+.nav-left {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
     justify-self: start;
-}
-
-.nav-socials a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20px;
-    /* Match icon height */
-}
-
-/* Separator between Theme Toggle and Social Icons */
-.nav-separator {
-    width: 1px;
-    height: 18px;
-    background-color: var(--secondary-text);
-    margin: 0 0.5rem;
-    opacity: 0.5;
-}
-
-.social-icon {
-    width: 20px;
-    height: 20px;
-    color: var(--secondary-text);
-    transition: all 0.3s ease;
-    opacity: 0.8;
-}
-
-.nav-socials a:hover .social-icon {
-    color: var(--accent-color);
-    opacity: 1;
-    transform: translateY(-2px);
 }
 
 /* Theme Toggle Button */
@@ -263,6 +181,7 @@ a {
     height: 20px;
 }
 
+/* Nav Links */
 .nav-links {
     list-style: none;
     display: flex;
@@ -289,7 +208,6 @@ a {
     align-items: center;
     text-align: center;
     position: relative;
-    /* Background is now handled by body */
     background: transparent;
 }
 
@@ -299,7 +217,6 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Gradient fade at bottom to blend into next section smoother */
     background: linear-gradient(to bottom, transparent, var(--overlay-dark));
 }
 
@@ -312,297 +229,130 @@ a {
 
 .hero-title {
     font-size: clamp(2.5rem, 8vw, 5rem);
-    /* Responsive font size */
     font-weight: 700;
-
-    /* Use a smaller, manageable spacing */
     letter-spacing: 2rem;
-    /* Matches letter-spacing to center */
     text-indent: 2rem;
-
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     display: block;
     width: 100%;
     text-align: center;
-
-    /* Visuals */
     background: linear-gradient(to bottom, #ffffff 0%, #d1d1d1 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.4));
-
     opacity: 0;
     animation: fadeInUp 1.2s ease forwards 0.5s;
 }
 
-.hero-subtitle {
-    font-size: 1.8rem;
-    font-weight: var(--font-weight-light);
-    /* Thin weight for contrast */
-    letter-spacing: 0.4em;
-    text-indent: 0.4em;
-    /* Very wide spacing for "Echo" theme */
+/* English band name: wui4sing1 */
+.hero-name {
+    font-family: var(--font-body);
+    font-size: clamp(0.85rem, 2vw, 1.3rem);
+    font-weight: 300;
+    letter-spacing: 0.45em;
+    text-indent: 0.45em;
+    text-transform: uppercase;
     color: var(--secondary-text);
     margin-bottom: 2.5rem;
-    text-transform: uppercase;
-
+    white-space: nowrap;
     opacity: 0;
     animation: fadeInUp 1.2s ease forwards 0.8s;
 }
 
-/* Bible Verse Container */
+.hero-name .tone {
+    font-size: 0.55em;
+    vertical-align: super;
+    line-height: 1;
+    opacity: 0.55;
+    font-weight: 300;
+    letter-spacing: 0;
+}
+
+body.light-theme .hero-name {
+    color: #555555;
+}
+
+/* Bible Verse */
 .hero-verse {
     font-family: var(--font-heading);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-style: italic;
-    /* Italics applied ONLY to the quote now */
     color: #e0e0e0;
     max-width: 700px;
-    margin: 0 auto 3.5rem auto;
+    margin: 0 auto 3rem auto;
     line-height: 2;
     opacity: 0;
     animation: fadeInUp 1.2s ease forwards 1.1s;
 }
 
-/* Verse Source: Distinct non-italic style */
+body.light-theme .hero-verse {
+    color: #333333;
+}
+
 .verse-source {
     display: block;
-    /* Moves source to a new line */
     font-style: normal;
-    /* Removes italics from the source */
     font-size: 0.9rem;
     font-family: var(--font-body);
-    /* Uses Sans-Serif for a modern contrast */
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin-top: 1rem;
     color: var(--secondary-text);
 }
 
-/* Split CTA Button */
-.split-btn-container {
-    position: relative;
+/* Platform Buttons */
+.platform-btns {
     display: flex;
+    gap: 0.85rem;
     justify-content: center;
-    align-items: center;
-    width: 280px;
-    height: 55px;
-    margin: 2rem auto 0;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: transparent;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 50px;
-    /* Pill Shape */
-    white-space: nowrap;
-    /* Prevent text wrapping */
-    flex-wrap: nowrap;
-    /* Prevent icon wrapping */
-
-    /* Animation Fade In */
+    flex-wrap: wrap;
     opacity: 0;
     animation: fadeInUp 1.2s ease forwards 1.4s;
 }
 
-/* Default state: Single Button Look */
-.default-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.4em;
-    text-indent: 0.4em;
-    font-weight: 300;
-    z-index: 10;
-    pointer-events: none;
-    transition: all 0.4s ease;
-    white-space: nowrap;
-    opacity: 1;
-    /* Explicitly set opacity */
-}
-
-/* Hover/Active State for Container */
-.split-btn-container:hover,
-.split-btn-container.active {
-    border-color: rgba(255, 255, 255, 0.8);
-    /* Make border more visible */
-    background: rgba(255, 255, 255, 0.05);
-    /* Slight fill */
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-}
-
-.split-btn-container:hover .default-text,
-.split-btn-container.active .default-text {
-    opacity: 0;
-    visibility: hidden;
-    /* Hide it completely to prevent clicks/overlaps */
-    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
-    /* Delay visibility hide */
-    transform: translate(-50%, -150%);
-    /* Move up */
-}
-
-/* Left and Right Halves */
-.split-half {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 50%;
-    display: flex;
+.platform-btn {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    z-index: 5;
-    text-decoration: none;
-    transition: all 0.4s ease;
-    opacity: 0;
-    /* Hidden initially */
-    transform: translateY(20px);
-    white-space: nowrap;
-    flex-wrap: nowrap;
-}
-
-.split-half.left {
-    left: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0);
-    /* Invisible initially */
-    /* Invisible initially */
-}
-
-.split-half.right {
-    right: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0);
-}
-
-/* Reveal Halves on Interaction */
-.split-btn-container:hover .split-half,
-.split-btn-container.active .split-half {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Individual Half Hover */
-.split-half:hover {
-    background: rgba(255, 255, 255, 0.9);
-}
-
-.split-half:hover .cta-icon {
-    color: #000000;
-    transform: scale(1.1);
-}
-
-/* Divider in Middle */
-.split-divider {
-    position: absolute;
-    top: 15%;
-    bottom: 15%;
-    left: 50%;
-    width: 1px;
-    background: rgba(255, 255, 255, 0.4);
-    transform: translateX(-50%) scaleY(0);
-    /* Hidden height */
-    transition: all 0.4s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 6;
-    overflow: visible;
-}
-
-/* Reveal Divider */
-.split-btn-container:hover .split-divider,
-.split-btn-container.active .split-divider {
-    transform: translateX(-50%) scaleY(1);
-}
-
-/* Icons within Halves */
-.icon-label {
-    display: flex;
     gap: 0.5rem;
-    align-items: center;
-}
-
-.cta-icon {
-    width: 24px;
-    height: 24px;
-    /* CRITICAL: Enforce max dimensions for Safari/iPad */
-    max-width: 24px;
-    max-height: 24px;
-    min-width: 24px;
-    /* Prevent squishing */
-    flex-shrink: 0;
-    /* CRITICAL: Never let the icon shrink */
-    fill: currentColor;
-    color: #ffffff;
+    padding: 0.7rem 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-/* Ensure multi-icon container has proper spacing and alignment */
-.multi-icon {
-    display: flex;
-    gap: 8px;
-    /* Explicit gap between the two icons */
-    align-items: center;
-    justify-content: center;
+.platform-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
 }
 
-/* Light Theme Adjustments */
-body.light-theme .default-text {
-    color: #1a1a1a;
+.platform-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-body.light-theme .split-btn-container {
-    border-color: rgba(0, 0, 0, 0.3);
+body.light-theme .platform-btn {
+    border-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.6);
 }
 
-body.light-theme .cta-icon {
-    color: #1a1a1a;
-}
-
-body.light-theme .split-divider {
-    background: rgba(0, 0, 0, 0.2);
-}
-
-body.light-theme .split-divider span {
-    background: #f5f5f5;
-    color: #1a1a1a;
-}
-
-/* Match light bg */
-body.light-theme .split-half:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-body.light-theme .split-half:hover .cta-icon {
-    color: #fff;
-}
-
-body.light-theme .split-btn-container:hover {
-    border-color: #000;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-/* Shimmer Effect (Optional) */
-.split-btn-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: all 0.6s;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.split-btn-container:hover::before {
-    left: 100%;
+body.light-theme .platform-btn:hover {
+    background: rgba(0, 0, 0, 0.07);
+    border-color: rgba(0, 0, 0, 0.5);
+    color: #000000;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Sections General */
@@ -623,7 +373,6 @@ section {
 
 /* Mission Section */
 .mission-section {
-    /* Semi-transparent dark background to reveal image behind */
     background-color: var(--overlay-dark);
 }
 
@@ -633,7 +382,7 @@ section {
     margin: 0 auto;
 }
 
-/* Echo Animation Styles */
+/* Echo Animation */
 .echo-reveal {
     opacity: 0;
     filter: blur(10px);
@@ -647,7 +396,6 @@ section {
     transform: translateY(0);
 }
 
-/* Staggered Delays for children */
 .mission-content h3.echo-reveal {
     transition-delay: 0.1s;
 }
@@ -673,15 +421,12 @@ section {
     margin-bottom: 2rem;
     font-size: 1.15rem;
     color: var(--secondary-text);
-    /* Improved typography */
     line-height: 2.0;
     padding-left: 0.5rem;
-    /* Visual alignment compensation */
 }
 
 /* Music Section */
 .music-section {
-    /* Slightly darker transparency for music section */
     background-color: var(--overlay-dark);
 }
 
@@ -690,7 +435,6 @@ section {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* Prevent stretching to max height */
     gap: 2rem;
     flex-wrap: wrap;
     margin-bottom: 4rem;
@@ -708,7 +452,6 @@ section {
 
 .embed-container iframe {
     display: block;
-    /* Removes bottom whitespace from inline behavior */
     width: 100%;
     border: none;
 }
@@ -720,9 +463,7 @@ section {
 /* Horizontal Scroll Section */
 .horizontal-scroll-section {
     height: 400vh;
-    /* Reduced from 300vh for faster scroll */
     position: relative;
-    /* Context for sticky */
 }
 
 .sticky-wrapper {
@@ -731,74 +472,45 @@ section {
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    /* No local scrollbars */
     display: flex;
     align-items: center;
-    /* Vertically center the track */
 }
 
-/* MV Grid: Now acts as the moving track */
 .mv-grid {
     display: flex;
     gap: 4rem;
     width: max-content;
     will-change: transform;
-
-    /* Center the first and last items */
-    /* Card width is 60vw. Remaining space is 40vw. Half is 20vw. */
     padding-left: 20vw;
     padding-right: 20vw;
-
-    /* CRITICAL: Ensures the grid moves instantly with the scroll bar */
     transition: transform 0s linear !important;
-
     margin-top: 0;
 }
 
-/* Hide scrollbar styles are no longer needed for mv-grid itself 
-   as it won't scroll internally */
-
-/* MV Card: Glassmorphism Container */
+/* MV Card */
 .mv-card {
     width: 60vw;
-    /* Fixed width for impact */
     max-width: 60vw;
-    /* prevent stretching */
     min-width: 0;
-    /* remove min constraint */
     flex: 0 0 auto;
-    /* Don't shrink */
     scroll-snap-align: center;
-    /* Snap to center */
-
     white-space: normal;
-    /* force text wrap */
-
     background: rgba(255, 255, 255, 0.03);
-    /* Extremely subtle white tint */
     backdrop-filter: blur(12px);
-    /* Strong blur to distinguish from background */
     -webkit-backdrop-filter: blur(12px);
     border-radius: 16px;
-    /* More rounded for a modern look */
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Thin, soft border */
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
-/* Hover Effect: Soft Glow & Expansion */
 .mv-card:hover {
     transform: translateY(-12px) scale(1.02);
     border-color: rgba(255, 255, 255, 0.4);
-    /* Border brightens on hover */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 20px rgba(255, 255, 255, 0.05);
-    /* Internal glow */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
-/* Thumbnail Styling */
 .mv-thumbnail {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -806,7 +518,6 @@ section {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Info Section Typography */
 .mv-info {
     padding: 1.8rem;
 }
@@ -833,7 +544,6 @@ section {
     background-color: var(--overlay-dark);
 }
 
-/* Form Container */
 .form-container {
     display: flex;
     justify-content: center;
@@ -844,12 +554,10 @@ section {
 .form-container iframe {
     max-width: 640px;
     width: 100%;
-    /* Ensure it doesn't break out on small screens */
     background: transparent;
     border-radius: 12px;
 }
 
-/* Footer Social Icons */
 .footer-socials {
     display: flex;
     justify-content: center;
@@ -884,7 +592,6 @@ section {
         opacity: 0;
         transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -905,7 +612,6 @@ section {
 /* Responsive Mobile Styles */
 @media (max-width: 768px) {
 
-    /* --- 1. GLOBAL LAYOUT ADJUSTMENTS --- */
     .mobile-break {
         display: block;
     }
@@ -914,9 +620,8 @@ section {
         padding: 4rem 1.5rem;
     }
 
-    /* --- 2. NAVBAR LAYOUT FIXES --- */
+    /* Navbar */
     .navbar {
-        /* Reduce padding significantly to fit everything on one line */
         padding: 1rem 1rem !important;
         display: flex;
         justify-content: space-between;
@@ -924,24 +629,13 @@ section {
         gap: 0.5rem;
     }
 
-    /* --- LEFT: Social Icons & Theme Toggle --- */
-    .nav-socials {
-        display: flex !important;
-        /* Force flex layout */
-        align-items: center;
-        gap: 0.4rem;
-        /* Space between icons */
-
-        /* CRITICAL: Prevent the container from collapsing to width: 0 */
+    .nav-left {
         flex-shrink: 0;
-        min-width: 80px;
-
-        /* Ensure it sits on top of the logo layer */
+        min-width: 32px;
         position: relative;
         z-index: 100;
     }
 
-    /* Fix for the Theme Toggle Button */
     .theme-toggle {
         width: 24px;
         height: 24px;
@@ -951,48 +645,20 @@ section {
         justify-content: center;
     }
 
-    /* Fix for Social Links (Anchor Tags) */
-    .nav-socials a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        color: var(--text-color);
-        /* Ensure they aren't transparent */
-    }
-
-    /* CRITICAL SVG FIX: Force dimensions on the inline SVGs */
-    .social-icon,
     .theme-icon {
         width: 18px !important;
         height: 18px !important;
         min-width: 18px !important;
-        /* Stop iOS from squishing them */
         display: block;
-        fill: currentColor;
-        /* Uses the parent text color */
     }
 
-    .nav-separator {
-        height: 14px;
-        margin: 0 0.1rem;
-        background-color: var(--secondary-text);
-    }
-
-    /* --- CENTER: Logo --- */
     .logo-container {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        /* Perfect centering */
-
-        /* Allow clicks to pass through empty space around logo */
         pointer-events: none;
         z-index: 10;
-        /* Lower than socials so icons remain clickable */
-
         width: fit-content;
         max-width: 120px;
         display: flex;
@@ -1001,31 +667,23 @@ section {
 
     .nav-logo {
         height: 32px;
-        /* Smaller logo for mobile */
         pointer-events: auto;
-        /* Re-enable clicks on the image itself */
     }
 
-    /* --- RIGHT: Nav Text Links --- */
     .nav-links {
         display: flex;
         gap: 0.4rem;
-        margin-left: 0;
-        background: transparent;
         flex-shrink: 0;
-        /* Prevent shrinking */
         z-index: 100;
-        /* Match socials z-index */
     }
 
     .nav-links a {
         font-size: 0.75rem;
         padding: 0.4rem;
         white-space: nowrap;
-        /* Prevent text wrapping */
     }
 
-    /* --- 3. HERO CONTENT ADJUSTMENTS --- */
+    /* Hero */
     .hero-title {
         font-size: 1.8rem;
         letter-spacing: 0.3rem;
@@ -1033,9 +691,10 @@ section {
         line-height: 1.2;
     }
 
-    .hero-subtitle {
-        font-size: 0.9rem;
-        letter-spacing: 0.2em;
+    .hero-name {
+        font-size: 0.8rem;
+        letter-spacing: 0.25em;
+        text-indent: 0.25em;
     }
 
     .hero-verse {
@@ -1044,18 +703,23 @@ section {
         line-height: 1.6;
     }
 
-    /* --- MOBILE SPLIT BUTTON --- */
-    .split-btn-container {
-        width: 180px;
-        /* Narrower initially on mobile */
+    /* Platform Buttons on Mobile */
+    .platform-btns {
+        gap: 0.5rem;
     }
 
-    .split-btn-container.active {
-        width: 280px;
-        /* Expands on tap */
+    .platform-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
     }
 
-    /* --- 3.1 MISSION & GENERAL TEXT --- */
+    .platform-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Mission & General Text */
     .section-title,
     .mission-content h3 {
         font-size: 1.5rem;
@@ -1067,7 +731,7 @@ section {
         padding-left: 0.5rem;
     }
 
-    /* --- 4. FOOTER & FORMS --- */
+    /* Footer */
     .footer {
         padding: 3rem 1.5rem;
     }
