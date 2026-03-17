@@ -276,30 +276,54 @@ body.light-theme .hero-name {
 
 /* Bible Verse */
 .hero-verse {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-style: italic;
-    color: #e0e0e0;
-    max-width: 700px;
+    /* Noto Serif TC listed first: it has full CJK glyph coverage and a true
+       serif structure. Playfair Display is omitted here — it has no CJK glyphs
+       and can produce erratic fallback sizing when listed before a CJK font. */
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+    font-weight: 400;
+    /* font-style: italic removed — CJK fonts have no italic variant;
+       browsers apply a mechanical slant that looks unintentional */
+    color: #eaeaea;
+    max-width: 680px;
     margin: 0 auto 3rem auto;
     line-height: 2;
+    letter-spacing: 0.03em;
     opacity: 0;
-    animation: fadeInUp 1.2s ease forwards 1.1s;
+    animation:
+        fadeInUp 1.2s ease forwards 1.1s,
+        echoGlow 6s ease-in-out infinite 2.8s;
 }
 
 body.light-theme .hero-verse {
-    color: #333333;
+    color: #2a2a2a;
+    /* Override both animations for light-mode-appropriate glow colour */
+    animation:
+        fadeInUp 1.2s ease forwards 1.1s,
+        echoGlowLight 6s ease-in-out infinite 2.8s;
 }
 
 .verse-source {
     display: block;
     font-style: normal;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-family: var(--font-body);
-    letter-spacing: 0.2em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    margin-top: 1rem;
+    margin-top: 1.4rem;
     color: var(--secondary-text);
+    opacity: 0.75;
+}
+
+/* Thin rule above the citation — a breath between the verse and its source */
+.verse-source::before {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: currentColor;
+    margin: 0 auto 0.8rem;
+    opacity: 0.45;
 }
 
 /* Platform Buttons */
@@ -598,6 +622,51 @@ section {
     }
 }
 
+/* Echo glow — dark background
+   Silence frames use explicit transparent shadows with the SAME layer count
+   as the peak frame. This is required for CSS to interpolate the tween:
+   `text-shadow: none` cannot be interpolated with a multi-layer list and
+   will cause browsers to jump or skip the animation entirely. */
+@keyframes echoGlow {
+    /* Silence: two transparent layers matching the peak layer count */
+    0%, 68%, 100% {
+        text-shadow:
+            0 0  0px rgba(255, 255, 255, 0),
+            0 0  0px rgba(255, 255, 255, 0);
+    }
+    /* Wave arrives: tight halo close to the text */
+    16% {
+        text-shadow:
+            0 0  8px rgba(255, 255, 255, 0.28),
+            0 0 22px rgba(255, 255, 255, 0.12);
+    }
+    /* Wave expands outward and dissipates */
+    44% {
+        text-shadow:
+            0 0 20px rgba(255, 255, 255, 0.08),
+            0 0 55px rgba(255, 255, 255, 0.04);
+    }
+}
+
+/* Echo glow — light background */
+@keyframes echoGlowLight {
+    0%, 68%, 100% {
+        text-shadow:
+            0 0  0px rgba(0, 0, 0, 0),
+            0 0  0px rgba(0, 0, 0, 0);
+    }
+    16% {
+        text-shadow:
+            0 0  8px rgba(0, 0, 0, 0.20),
+            0 0 22px rgba(0, 0, 0, 0.09);
+    }
+    44% {
+        text-shadow:
+            0 0 20px rgba(0, 0, 0, 0.06),
+            0 0 55px rgba(0, 0, 0, 0.03);
+    }
+}
+
 .scroll-reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -698,9 +767,10 @@ section {
     }
 
     .hero-verse {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         padding: 0 1rem;
-        line-height: 1.6;
+        line-height: 1.75;
+        letter-spacing: 0.02em;
     }
 
     /* Platform Buttons on Mobile */
